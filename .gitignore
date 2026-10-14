@@ -1,0 +1,19 @@
+# build
+target/
+*.class
+*.jar
+
+# frontend
+frontend/node_modules/
+frontend/dist-*
+src/main/resources/static/
+
+# tooling
+.idea/
+.vscode/
+*.iml
+.mvn/wrapper/maven-wrapper.jar
+
+# env
+.env
+*.local

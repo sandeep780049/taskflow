@@ -1,0 +1,31 @@
+databases:
+  - name: taskflow-db
+    plan: free
+    databaseName: taskflow
+    user: taskflow
+    postgresMajorVersion: "16"
+
+services:
+  - type: web
+    name: taskflow-api
+    runtime: docker
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      # Render DATABASE_URL is postgres://...; the app normalizes it to jdbc:postgresql:// at startup
+      - key: DATABASE_URL
+        fromDatabase:
+          name: taskflow-db
+          property: connectionString
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: taskflow-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: taskflow-db
+          property: password
+      - key: TASKFLOW_JWT_SECRET
+        generateValue: true
+      - key: WORKER_NAME
+        value: render-worker

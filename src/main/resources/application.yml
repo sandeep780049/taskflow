@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: taskflow
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/taskflow}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 10000
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc.time_zone: UTC
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: ${PORT:8080}
+
+taskflow:
+  jwt:
+    secret: ${JWT_SECRET:dev-only-secret-change-me-32-bytes-minimum!!}
+    expiry-minutes: 1440
+  worker:
+    enabled: true
+    name: ${WORKER_NAME:worker-local}
+    concurrency: 4
+    lease-seconds: 60
+    heartbeat-seconds: 15
+    poll-interval-ms: 2000
+  scheduler:
+    tick-ms: 2000
+  recovery:
+    tick-ms: 5000
+    worker-stale-seconds: 60
+  http-job:
+    connect-timeout-ms: 5000
+    request-timeout-ms: 30000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when_authorized
+
+logging:
+  level:
+    root: INFO
+    com.taskflow: DEBUG
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

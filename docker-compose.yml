@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: taskflow
+      POSTGRES_USER: taskflow
+      POSTGRES_PASSWORD: taskflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - taskflow-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskflow -d taskflow"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api-1:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/taskflow
+      DATABASE_USERNAME: taskflow
+      DATABASE_PASSWORD: taskflow
+      JWT_SECRET: change-me-in-prod-please-32-bytes-minimum!!
+      WORKER_NAME: api-instance-1
+
+  api-2:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/taskflow
+      DATABASE_USERNAME: taskflow
+      DATABASE_PASSWORD: taskflow
+      JWT_SECRET: change-me-in-prod-please-32-bytes-minimum!!
+      WORKER_NAME: api-instance-2
+
+volumes:
+  taskflow-db:
