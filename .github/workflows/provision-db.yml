@@ -24,6 +24,9 @@ jobs:
           else
             echo "role taskflow_user already exists"
           fi
+          # Render's instance owner must be able to SET ROLE before it can
+          # CREATE DATABASE owned by taskflow_user
+          psql -c "GRANT taskflow_user TO current_user"
           count=$(psql -tAc "SELECT count(*) FROM pg_database WHERE datname='taskflow'")
           if [ "$count" = "0" ]; then
             psql -c "CREATE DATABASE taskflow OWNER taskflow_user"
