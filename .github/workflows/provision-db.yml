@@ -1,0 +1,38 @@
+name: provision-db
+
+# One-shot, idempotent: creates the dedicated `taskflow` database and
+# `taskflow_user` role inside the shared Render Postgres instance.
+on:
+  workflow_dispatch:
+
+jobs:
+  provision:
+    runs-on: ubuntu-latest
+    env:
+      PGHOST: ${{ secrets.RENDER_PG_HOST }}
+      PGUSER: ${{ secrets.RENDER_PG_ADMIN_USER }}
+      PGPASSWORD: ${{ secrets.RENDER_PG_ADMIN_PASS }}
+      PGDATABASE: ${{ secrets.RENDER_PG_DB }}
+      TASKFLOW_DB_PASSWORD: ${{ secrets.TASKFLOW_DB_PASSWORD }}
+    steps:
+      - name: Create role + database (idempotent)
+        run: |
+          set -e
+          count=$(psql -tAc "SELECT count(*) FROM pg_roles WHERE rolname='taskflow_user'")
+          if [ "$count" = "0" ]; then
+            psql -c "CREATE ROLE taskflow_user LOGIN PASSWORD '$TASKFLOW_DB_PASSWORD'"
+          else
+            echo "role taskflow_user already exists"
+          fi
+          count=$(psql -tAc "SELECT count(*) FROM pg_database WHERE datname='taskflow'")
+          if [ "$count" = "0" ]; then
+            psql -c "CREATE DATABASE taskflow OWNER taskflow_user"
+          else
+            echo "database taskflow already exists"
+          fi
+
+      - name: Verify taskflow_user connects to the taskflow DB
+        env:
+          PGPASSWORD: ${{ secrets.TASKFLOW_DB_PASSWORD }}
+        run: |
+          psql -h "$PGHOST" -U taskflow_user -d taskflow -tAc "SELECT 'connected to ' || current_database() || ' as ' || current_user"
