@@ -13,8 +13,11 @@ TaskFlow is a full-stack, production-minded platform to **create, schedule, exec
 - JUnit/Mockito unit tests + Testcontainers end-to-end lifecycle tests
 - Docker, Docker Compose (two worker instances), GitHub Actions CI, Render blueprint
 
-**Live deployment:** _https://taskflow-api-XXXX.onrender.com_ <!-- LIVE_LINK -->
-(this placeholder is replaced with the exact URL once Render finishes building)
+**Live deployment:**
+
+- ✅ **Live demo running:** **https://homeland-smaller-tuesday-civic.trycloudflare.com** — shared demo login `demo@taskflow.dev` / `demo-pass-1234`
+  - Free Cloudflare quick-tunnel in front of the running app (Java + embedded worker), backed by a free [Neon](https://neon.tech) PostgreSQL (pooler endpoint). Online while the host machine is up; the URL rotates if the tunnel restarts.
+- **Permanent hosting:** free-tier Render blueprint included (`render.yaml` — web service + Postgres) and one-click deploy button below (Render uploads require billing verification, still $0 on the free tier); `docker compose up --build` runs the same stack anywhere Docker is available.
 
 ## Quick start (local, without Docker)
 

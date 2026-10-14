@@ -28,6 +28,7 @@ public class Job {
     @Column
     private String description;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "job_type", nullable = false)
     private JobType jobType;
 
