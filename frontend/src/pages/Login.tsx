@@ -85,6 +85,7 @@ export default function Login() {
     setEmail('demo@taskflow.dev');
     setPassword('demo-pass-1234');
     setError(null);
+    // keep fields visible — user can edit or submit directly
   };
 
   return (
@@ -103,14 +104,14 @@ export default function Login() {
             <button
               type="button"
               className={`tab-opt ${mode === 'login' ? 'active' : ''}`}
-              onClick={() => { setMode('login'); setError(null); }}
+              onClick={() => { setMode('login'); setEmail(''); setPassword(''); setError(null); }}
             >
               Sign in
             </button>
             <button
               type="button"
               className={`tab-opt ${mode === 'register' ? 'active' : ''}`}
-              onClick={() => { setMode('register'); setError(null); }}
+              onClick={() => { setMode('register'); setEmail(''); setPassword(''); setError(null); }}
             >
               Register
             </button>
