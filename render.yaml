@@ -1,13 +1,11 @@
-databases:
-  - name: taskflow-db
-    plan: free
-    databaseName: taskflow
-    user: taskflow
-    postgresMajorVersion: "16"
+# TaskFlow — distributed job scheduling and execution platform
+# Requires: Java 21, Maven 3.9+
 
+version: '1'
 services:
   - type: web
     name: taskflow-api
+    env: java
     plan: free
     buildCommand: mvn package -DskipTests -B
     startCommand: java -jar target/taskflow-api.jar
