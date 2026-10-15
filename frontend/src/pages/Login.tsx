@@ -53,8 +53,8 @@ function BootLog() {
 export default function Login() {
   const navigate = useNavigate();
   const [mode, setMode] = useState<'login' | 'register'>('login');
-  const [email, setEmail] = useState('demo@taskflow.dev');
-  const [password, setPassword] = useState('demo-pass-1234');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -64,17 +64,17 @@ export default function Login() {
     setBusy(true);
     setError(null);
     try {
-      const res = await api.login(email, password);
-      setToken(res.token);
-      navigate('/dashboard', { replace: true });
-    } catch (err) {
-      // demo account works even if backend is down — simulate success for the demo credential
-      if (email === 'demo@taskflow.dev' && password === 'demo-pass-1234') {
-        setToken('demo-token');
+      if (mode === 'register') {
+        const res = await api.register(email, password);
+        setToken(res.token);
         navigate('/dashboard', { replace: true });
-        return;
+      } else {
+        const res = await api.login(email, password);
+        setToken(res.token);
+        navigate('/dashboard', { replace: true });
       }
-      setError(err instanceof Error ? err.message : 'Invalid email or password');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
     } finally {
       setBusy(false);
     }
@@ -104,14 +104,14 @@ export default function Login() {
             <button
               type="button"
               className={`tab-opt ${mode === 'login' ? 'active' : ''}`}
-              onClick={() => { setMode('login'); setEmail(''); setPassword(''); setError(null); }}
+              onClick={() => { setMode('login'); setError(null); }}
             >
               Sign in
             </button>
             <button
               type="button"
               className={`tab-opt ${mode === 'register' ? 'active' : ''}`}
-              onClick={() => { setMode('register'); setEmail(''); setPassword(''); setError(null); }}
+              onClick={() => { setMode('register'); setError(null); }}
             >
               Register
             </button>
@@ -168,11 +168,11 @@ export default function Login() {
           </form>
 
           <div className="form-footer">
-            <button type="button" className="link-btn" onClick={() => setMode('register')}>
+            <button type="button" className="link-btn" onClick={() => { setMode('register'); setEmail(''); setPassword(''); setError(null); }}>
               Create an account
             </button>
             <span className="dot">·</span>
-            <button type="button" className="link-btn" onClick={() => setMode('login')}>
+            <button type="button" className="link-btn" onClick={() => { setMode('login'); setEmail(''); setPassword(''); setError(null); }}>
               Sign in
             </button>
           </div>
