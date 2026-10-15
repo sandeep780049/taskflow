@@ -21,7 +21,7 @@ TaskFlow is permanently hosted on **Render** — no Cloudflare tunnel dependency
 
 2. **Live URL:** → [**https://taskflow-api-nsg7.onrender.com**](https://taskflow-api-nsg7.onrender.com)
 
-3. **Demo login** (shared): `demo@taskflow.dev` / `demo-pass-1234`
+
 
 ## How to redeploy (any time)
 

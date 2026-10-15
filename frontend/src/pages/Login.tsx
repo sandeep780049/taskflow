@@ -34,12 +34,6 @@ export default function Login() {
     }
   };
 
-  const fillDemo = () => {
-    setMode('login');
-    setEmail('demo@taskflow.dev');
-    setPassword('demo-pass-1234');
-    setError(null);
-  };
 
   return (
     <div className="center-page">
@@ -94,9 +88,6 @@ export default function Login() {
                 mode === 'login' ? 'Sign in →' : 'Create account →'}
             </button>
           </form>
-          <div className="demo-hint">
-            Just exploring? <button type="button" className="btn small ghost" onClick={fillDemo} style={{ marginLeft: 6 }}>Use demo account</button>
-          </div>
         </main>
       </div>
     </div>
