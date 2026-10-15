@@ -23,25 +23,6 @@ TaskFlow is permanently hosted on **Render** — no Cloudflare tunnel dependency
 
 3. **Demo login** (shared): `demo@taskflow.dev` / `demo-pass-1234`
 
-## 📚 Other projects by sandeep780049
-
-| Project | Description | Live URL |
-|---|---|---|
-| [TaskFlow](./README.md) | Distributed job scheduler — schedule, execute, retry and monitor background jobs | [🌐 Live](https://taskflow-api-nsg7.onrender.com) |
-| [AlgoArena](algoarena/README.md) | Competitive coding contests, quizzes, and practice — all in one platform | [🌐 Live](https://algoarena-9nwy.onrender.com) |
-| [PulseWatch](pulsewatch/README.md) | Open-source uptime monitoring — heartbeat checks, latency tracking, p95 response times | [🌐 Live](https://pulsewatch-web.onrender.com) |
-| [Booking Platform](Desktop/booking-platform/README.md) | Fullstack booking management — adventure bookings, hotels, item rentals with real-time chat | [🌐 Live](https://booking-platform-9tlk.onrender.com) |
-| [SKTIME Work](sktime-work/README.md) | Time series forecasting and analysis utilities | — |
-| [Kestra Work](kestra-work/README.md) | Workflow automation and orchestrator experiments | — |
-| [Vitest PR Fork](vitest-pr-fork/README.md) | Pr-rated test runner fork for GitHub PR workflows | — |
-| [GH Pr Radar](gh-pr-radar/README.md) | One-command open PR viewer across all GitHub repos | — |
-| [Route Opt](route-opt/README.md) | Route optimization utilities | — |
-| [Vite Work](vite-work/README.md) | Vite project experiments | — |
-| [StoatDB](stoatdb/README.md) | Database utilities | — |
-| [Stock Market Analysis](stock-market-analysis-powerbi/README.md) | Stock market analysis and PowerBI dashboards | — |
-| [Stroke Prediction](stroke-prediction/README.md) | Healthcare machine learning — stroke prediction model | — |
-| [PyAlgos](pyalgos/README.md) | Python algorithm implementations | — |
-
 ## How to redeploy (any time)
 
 Just **push to `main`** — GitHub Actions auto-builds and deploys. That's it.
@@ -83,8 +64,7 @@ delivery is documented as at-least-once.
 ## API overview
 
 `/api/auth/register|login|me` · `/api/jobs` (CRUD, filters, cancel) ·
-`/api/metrics` · `/api/workers` (admin) · `/actuator/health` ·
-`/swagger-ui.html` (full OpenAPI).
+`/api/metrics` · `/api/workers` (admin) · `/actuator/health` · `/swagger-ui.html` (full OpenAPI).
 
 ## Architecture & design notes
 
