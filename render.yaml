@@ -10,7 +10,7 @@ services:
     name: taskflow-api
     runtime: docker
     plan: free
-    healthCheckPath: /actuator/health
+    healthCheckPath: /health
     envVars:
       # Render DATABASE_URL is postgres://...; the app normalizes it to jdbc:postgresql:// at startup
       - key: DATABASE_URL

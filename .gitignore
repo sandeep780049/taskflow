@@ -6,7 +6,8 @@ target/
 # frontend
 frontend/node_modules/
 frontend/dist-*
-src/main/resources/static/
+# src/main/resources/static/  (pre-built frontend — committed for reliable Docker builds)
+# src/main/resources/static/
 
 # tooling
 .idea/
