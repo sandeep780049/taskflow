@@ -1,0 +1,12 @@
+# TaskFlow Cloudflare Tunnel configuration
+# This config makes the tunnel stable (named tunnel) instead of
+# the volatile account-less Quick Tunnel that rotates on restart.
+
+# Name of the tunnel as registered in Cloudflare One dashboard
+tunnel: taskflow-demo-tunnel
+
+# Route incoming requests to the local Spring Boot app
+ingress:
+  - hostname: homeland-smaller-tuesday-civic.trycloudflare.com
+    service: http://localhost:8080
+  - service: http_status:404

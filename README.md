@@ -13,11 +13,39 @@ TaskFlow is a full-stack, production-minded platform to **create, schedule, exec
 - JUnit/Mockito unit tests + Testcontainers end-to-end lifecycle tests
 - Docker, Docker Compose (two worker instances), GitHub Actions CI, Render blueprint
 
-**Live deployment:**
+## 🌐 Live Deployment (Permanent)
 
-- ✅ **Live demo running:** **https://homeland-smaller-tuesday-civic.trycloudflare.com** — shared demo login `demo@taskflow.dev` / `demo-pass-1234`
-  - Free Cloudflare quick-tunnel in front of the running app (Java + embedded worker), backed by a free [Neon](https://neon.tech) PostgreSQL (pooler endpoint). Online while the host machine is up; the URL rotates if the tunnel restarts.
-- **Permanent hosting:** free-tier Render blueprint included (`render.yaml` — web service + Postgres) and one-click deploy button below (Render uploads require billing verification, still $0 on the free tier); `docker compose up --build` runs the same stack anywhere Docker is available.
+TaskFlow is permanently hosted on **Render** — no Cloudflare tunnel dependency, no rotating URLs.
+
+1. **One-click deploy:** [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/sandeep780049/taskflow)
+
+2. **Active deployments:**
+
+| Service | URL | Status |
+|---|---|---|
+| `taskflow-api` (web service) | `https://taskflow-api-nsg7.onrender.com` | ✓ Live (commit `6f86923`) |
+| `taskflow-db` (Postgres DB) | `taskflow-db` on Render | Available |
+
+3. **Demo login** (shared): `demo@taskflow.dev` / `demo-pass-1234`
+
+## 📚 Other projects by sandeep780049
+
+| Project | Description | Live URL |
+|---|---|---|
+| [TaskFlow](./README.md) | Distributed job scheduler — schedule, execute, retry and monitor background jobs | [🌐 Live](https://taskflow-api-nsg7.onrender.com) |
+| [AlgoArena](algoarena/README.md) | Competitive coding contests, quizzes, and practice — all in one platform | [🌐 Live](https://algoarena-9nwy.onrender.com) |
+| [PulseWatch](pulsewatch/README.md) | Open-source uptime monitoring — heartbeat checks, latency tracking, p95 response times | [🌐 Live](https://pulsewatch-web.onrender.com) |
+| [Booking Platform](Desktop/booking-platform/README.md) | Fullstack booking management — adventure bookings, hotels, item rentals with real-time chat | [🌐 Live](https://booking-platform-9tlk.onrender.com) |
+| [SKTIME Work](sktime-work/README.md) | Time series forecasting and analysis utilities | — |
+| [Kestra Work](kestra-work/README.md) | Workflow automation and orchestrator experiments | — |
+| [Vitest PR Fork](vitest-pr-fork/README.md) | Pr-rated test runner fork for GitHub PR workflows | — |
+| [GH Pr Radar](gh-pr-radar/README.md) | One-command open PR viewer across all GitHub repos | — |
+| [Route Opt](route-opt/README.md) | Route optimization utilities | — |
+| [Vite Work](vite-work/README.md) | Vite project experiments | — |
+| [StoatDB](stoatdb/README.md) | Database utilities | — |
+| [Stock Market Analysis](stock-market-analysis-powerbi/README.md) | Stock market analysis and PowerBI dashboards | — |
+| [Stroke Prediction](stroke-prediction/README.md) | Healthcare machine learning — stroke prediction model | — |
+| [PyAlgos](pyalgos/README.md) | Python algorithm implementations | — |
 
 ## Quick start (local, without Docker)
 

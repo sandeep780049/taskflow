@@ -25,7 +25,7 @@ services:
         fromDatabase:
           name: taskflow-db
           property: password
-      - key: TASKFLOW_JWT_SECRET
+      - key: JWT_SECRET
         generateValue: true
       - key: WORKER_NAME
         value: render-worker
