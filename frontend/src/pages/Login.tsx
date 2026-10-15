@@ -2,13 +2,6 @@ import { useState, type FormEvent } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useAuth } from '../auth';
 
-const FEATURES = [
-  { icon: '⚡', title: 'Instant & scheduled jobs', text: 'Run now, at a future time, or on recurring cron schedules.' },
-  { icon: '🔒', title: 'Distributed & safe', text: 'Postgres SKIP LOCKED claiming with leases — no double runs.' },
-  { icon: '🔁', title: 'Retries & dead-letter', text: 'Exponential backoff, permanent-failure quarantine, crash recovery.' },
-  { icon: '📊', title: 'Full observability', text: 'Per-attempt records, live logs, worker health, charts.' },
-];
-
 export default function Login() {
   const { login, register } = useAuth();
   const navigate = useNavigate();
@@ -56,94 +49,69 @@ export default function Login() {
         </div>
       </header>
 
-      {/* Main Hero + Form Section */}
-      <div className="login-hero">
-        <div className="login-container">
-          <div className="hero-content">
-            <span className="hero-badge">⚡ Production-minded job scheduler</span>
-            <h1>
-              TaskFlow — <span className="gradient-text">Distributed Job Scheduler</span>
-            </h1>
-            <p className="hero-subtitle">
-              A full-stack platform to <b>create, schedule, execute, monitor, retry, cancel and audit</b> background jobs.
-            </p>
-
-            <div className="feature-grid">
-              {FEATURES.map(f => (
-                <div key={f.title} className="feature-item">
-                  <span className="feature-icon">{f.icon}</span>
-                  <div>
-                    <b>{f.title}</b>
-                    <p>{f.text}</p>
-                  </div>
-                </div>
-              ))}
+      {/* Main Content - Login Form */}
+      <main className="login-content">
+        <div className="login-card">
+          <h1>{mode === 'login' ? 'Welcome back' : 'Create your account'}</h1>
+          <p className="form-subtitle">
+            {mode === 'login' ? 'Sign in to your TaskFlow workspace' : 'Free — just an email and a password'}
+          </p>
+          <form className="auth-form" onSubmit={submit}>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                required
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                autoComplete="email"
+              />
             </div>
-          </div>
-
-          {/* Login Form */}
-          <div className="login-form-card">
-            <h1>{mode === 'login' ? 'Welcome back' : 'Create your account'}</h1>
-            <p className="form-subtitle">
-              {mode === 'login' ? 'Sign in to your TaskFlow workspace' : 'Free — just an email and a password'}
-            </p>
-            <form className="auth-form" onSubmit={submit}>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
+            <label className="password-field">
+              Password
+              <div className="pw-wrap">
                 <input
-                  type="email"
-                  id="email"
+                  type={showPw ? 'text' : 'password'}
                   required
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  autoComplete="email"
+                  minLength={8}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder="min. 8 characters"
+                  autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
                 />
+                <button
+                  type="button"
+                  className="pw-toggle"
+                  onClick={() => setShowPw(s => !s)}
+                >
+                  {showPw ? 'Hide' : 'Show'}
+                </button>
               </div>
-              <label className="password-field">
-                Password
-                <div className="pw-wrap">
-                  <input
-                    type={showPw ? 'text' : 'password'}
-                    required
-                    minLength={8}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    placeholder="min. 8 characters"
-                    autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                  />
-                  <button
-                    type="button"
-                    className="pw-toggle"
-                    onClick={() => setShowPw(s => !s)}
-                  >
-                    {showPw ? 'Hide' : 'Show'}
-                  </button>
-                </div>
-              </label>
-              {error && <p className="error" style={{ marginTop: 6 }}>{error}</p>}
-              <button
-                className="btn primary"
-                disabled={busy}
-                style={{ width: '100%', marginTop: 12 }}
-                type="submit"
-              >
-                {busy ? <span className="spin" style={{ width: 16, height: 16, borderWidth: 2 }} /> :
-                  mode === 'login' ? 'Sign in →' : 'Create account →'}
-              </button>
-            </form>
-            <div className="form-footer">
-              <button type="button" className="tab-link" onClick={() => setMode('register')}>
-                Create an account
-              </button>
-              <span className="divider">·</span>
-              <button type="button" className="tab-link" onClick={() => setMode('login')}>
-                Sign in
-              </button>
-            </div>
+            </label>
+            {error && <p className="error" style={{ marginTop: 6 }}>{error}</p>}
+            <button
+              className="btn primary"
+              disabled={busy}
+              style={{ width: '100%', marginTop: 12 }}
+              type="submit"
+            >
+              {busy ? <span className="spin" style={{ width: 16, height: 16, borderWidth: 2 }} /> :
+                mode === 'login' ? 'Sign in →' : 'Create account →'}
+            </button>
+          </form>
+          <div className="form-footer">
+            <button type="button" className="tab-link" onClick={() => setMode('register')}>
+              Create an account
+            </button>
+            <span className="divider">·</span>
+            <button type="button" className="tab-link" onClick={() => setMode('login')}>
+              Sign in
+            </button>
           </div>
         </div>
-      </div>
+      </main>
 
       {/* Bottom Navigation */}
       <div className="login-nav bottom-nav">
