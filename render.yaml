@@ -8,32 +8,10 @@ databases:
 services:
   - type: web
     name: taskflow-api
-    runtime: docker
     plan: free
+    buildCommand: ./mvnw package -DskipTests --no-transfer-progress
+    startCommand: java -jar target/taskflow-api.jar
     healthCheckPath: /health
-    envVars:
-      # Render DATABASE_URL is postgres://...; the app normalizes it to jdbc:postgresql:// at startup
-      - key: DATABASE_URL
-        fromDatabase:
-          name: taskflow-db
-          property: connectionString
-      - key: DATABASE_USERNAME
-        fromDatabase:
-          name: taskflow-db
-          property: user
-      - key: DATABASE_PASSWORD
-        fromDatabase:
-          name: taskflow-db
-          property: password
-      - key: JWT_SECRET
-        generateValue: true
-      - key: WORKER_NAME
-        value: render-worker
-
-  - type: worker
-    name: taskflow-worker
-    runtime: docker
-    plan: free
     envVars:
       - key: DATABASE_URL
         fromDatabase:
