@@ -27,6 +27,9 @@ public class SecurityConfig {
     @Value("${app.cors-allowed-origins:http://localhost:5173}")
     private List<String> allowedOrigins;
 
+    @Value("${app.cors-allowed-origin-patterns:https://*.trycloudflare.com}")
+    private List<String> allowedOriginPatterns;
+
     private final JwtAuthFilter jwtAuthFilter;
 
     public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
@@ -42,6 +45,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         var config = new CorsConfiguration();
         config.setAllowedOrigins(allowedOrigins);
+        // demo tunnels (and any pattern-based origin such as preview domains)
+        config.setAllowedOriginPatterns(allowedOriginPatterns);
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         var source = new UrlBasedCorsConfigurationSource();
