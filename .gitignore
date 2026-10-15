@@ -13,7 +13,7 @@ frontend/dist-*
 .idea/
 .vscode/
 *.iml
-.mvn/wrapper/maven-wrapper.jar
+
 
 # env
 .env

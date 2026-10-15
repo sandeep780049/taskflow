@@ -9,7 +9,7 @@ services:
   - type: web
     name: taskflow-api
     plan: free
-    buildCommand: ./mvnw package -DskipTests --no-transfer-progress
+    buildCommand: mvn package -DskipTests -B
     startCommand: java -jar target/taskflow-api.jar
     healthCheckPath: /health
     envVars:
