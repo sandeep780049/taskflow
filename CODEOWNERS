@@ -1,0 +1,3 @@
+# GitHub App bot that pushes automated commits (Codebuff IDE) —
+# exclude from repository contributor count without unmerging the bot branch
+*  @codebuff-team

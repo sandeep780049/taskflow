@@ -19,12 +19,7 @@ TaskFlow is permanently hosted on **Render** — no Cloudflare tunnel dependency
 
 1. **One-click deploy:** [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/sandeep780049/taskflow)
 
-2. **Active deployments:**
-
-| Service | URL | Status |
-|---|---|---|
-| `taskflow-api` (web service) | `https://taskflow-api-nsg7.onrender.com` | ✓ Live (commit `6f86923`) |
-| `taskflow-db` (Postgres DB) | `taskflow-db` on Render | Available |
+2. **Live URL:** → [**https://taskflow-api-nsg7.onrender.com**](https://taskflow-api-nsg7.onrender.com)
 
 3. **Demo login** (shared): `demo@taskflow.dev` / `demo-pass-1234`
 
@@ -46,6 +41,10 @@ TaskFlow is permanently hosted on **Render** — no Cloudflare tunnel dependency
 | [Stock Market Analysis](stock-market-analysis-powerbi/README.md) | Stock market analysis and PowerBI dashboards | — |
 | [Stroke Prediction](stroke-prediction/README.md) | Healthcare machine learning — stroke prediction model | — |
 | [PyAlgos](pyalgos/README.md) | Python algorithm implementations | — |
+
+## How to redeploy (any time)
+
+Just **push to `main`** — GitHub Actions auto-builds and deploys. That's it.
 
 ## Quick start (local, without Docker)
 
@@ -92,16 +91,3 @@ delivery is documented as at-least-once.
 See [docs/architecture.md](docs/architecture.md) for the data-flow diagram,
 Mermaid ER model, state machine, claiming/lease/recovery semantics and the
 planned outbox→RabbitMQ evolution.
-
-## Deployment
-
-- **Render**: `render.yaml` blueprint (free web service + free Postgres),
-  deploy button: [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/sandeep780049/taskflow)
-- **CI**: `.github/workflows/ci.yml` runs backend tests (including
-  Testcontainers against real Postgres on the GitHub runner) and builds the dashboard.
-- **Env vars**: `DATABASE_URL|DATABASE_USERNAME|DATABASE_PASSWORD|TASKFLOW_JWT_SECRET|WORKER_NAME`.
-
-## Can I run tests without Docker?
-
-Yes — unit tests always run; the Testcontainers integration tests skip
-automatically when no Docker daemon is available and run in CI.
