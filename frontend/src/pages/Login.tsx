@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api, setToken } from '../api';
+import { useAuth } from '../auth';
 
 /* ---------- TF logo (inline SVG) ---------- */
 
@@ -52,6 +52,7 @@ function BootLog() {
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login, register } = useAuth();
   const [mode, setMode] = useState<'login' | 'register'>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -65,14 +66,11 @@ export default function Login() {
     setError(null);
     try {
       if (mode === 'register') {
-        const res = await api.register(email, password);
-        setToken(res.token);
-        navigate('/dashboard', { replace: true });
+        await register(email, password);
       } else {
-        const res = await api.login(email, password);
-        setToken(res.token);
-        navigate('/dashboard', { replace: true });
+        await login(email, password);
       }
+      navigate('/dashboard', { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
     } finally {
