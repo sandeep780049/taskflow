@@ -7,7 +7,7 @@ services:
     name: taskflow-api
     env: java
     plan: free
-    buildCommand: mvn package -DskipTests -B
+    buildCommand: ./mvnw package -DskipTests
     startCommand: java -jar target/taskflow-api.jar
     healthCheckPath: /health
     envVars:
