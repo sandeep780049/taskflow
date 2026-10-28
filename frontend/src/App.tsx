@@ -1,6 +1,7 @@
 import { Navigate, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import { useAuth } from './auth';
 import Login from './pages/Login';
+import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Jobs from './pages/Jobs';
 import JobDetail from './pages/JobDetail';
@@ -69,8 +70,9 @@ export default function App() {
   if (!user) {
     return (
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     );
   }
@@ -79,7 +81,7 @@ export default function App() {
       <Layout>
         <Routes>
           <Route path="/login" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/jobs/:id" element={<JobDetail />} />
